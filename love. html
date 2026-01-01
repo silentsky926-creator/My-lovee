@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>💗 مفاجأة</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:black;
+  color:white;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.box{
+  background:#ff69b4;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  width:90%;
+  max-width:400px;
+}
+button{
+  background:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:20px;
+  margin:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+#meter{
+  margin-top:20px;
+  height:20px;
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+}
+#fill{
+  height:100%;
+  width:0%;
+  background:red;
+  transition:width 0.2s;
+}
+.heart{
+  position:absolute;
+  font-size:24px;
+  animation:float 2s linear forwards;
+}
+@keyframes float{
+  0%{transform:translateY(0) rotate(0deg); opacity:1;}
+  100%{transform:translateY(-200px) rotate(360deg); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <h2>🎀 Hello Kitty 🎀</h2>
+  <p>انتي ريفان؟</p>
+  <button onclick="yes()">اي</button>
+  <button onclick="no()">لا</button>
+  <div id="meter" style="display:none">
+    <div id="fill"></div>
+  </div>
+</div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+function createHeart(){
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerText="💖";
+  heart.style.left=Math.random()*90+"%";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),2000);
+}
+
+function yes(){
+  let box=document.querySelector(".box");
+  box.innerHTML='<p>تحبين سيف؟</p>'+
+  '<button onclick="love()">أحبه</button>'+
+  '<button onclick="love()">أحبه مووت</button>';
+}
+
+function no(){
+  alert("لا تكذبين 😄");
+}
+
+function love(){
+  let box=document.querySelector(".box");
+  box.innerHTML='<p>يا من جمالُها يهزّ القلوب كالهِيام<br>وعينيها بحرٌ، وسحرها تمام الأشهر<br>حُسنُها يشبه عنترة في فخرهِ وقوته<br>وعشقُها يعلو على كل كلامٍ وسحر</p>'+
+  '<button onclick="marry()">أعشقك</button>';
+}
+
+function marry(){
+  let box=document.querySelector(".box");
+  box.innerHTML='<p>تتزوجيني؟</p><button onclick="startLove()">أكيد</button>';
+}
+
+function startLove(){
+  document.getElementById("music").play();
+  let box=document.querySelector(".box");
+  box.innerHTML='<p>مقدار حب سيف لك 💗</p>'+
+  '<div id="meter"><div id="fill"></div></div>';
+  let fill=document.getElementById("fill");
+  let w=0;
+  let interval=setInterval(()=>{
+    w++;
+    fill.style.width=w+"%";
+    createHeart();
+    if(w>=100) clearInterval(interval);
+  },30);
+}
+</script>
+</body>
+</html>
